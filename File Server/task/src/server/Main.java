@@ -1,15 +1,32 @@
 package server;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Main {
 
-    private static final Map<String, Boolean> files = new HashMap<>();
+    //    private static final Map<String, Boolean> files = new HashMap<>();
+    private static final int PORT = 34522;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        try (ServerSocket server = new ServerSocket(PORT)) {
+            System.out.println("Server started!");
+            try (
+                    Socket socket = server.accept();
+                    DataInputStream input = new DataInputStream(socket.getInputStream());
+                    DataOutputStream output = new DataOutputStream(socket.getOutputStream())
+            ) {
+                String msg = input.readUTF();
+                System.out.println("Received: " + msg);
+                String answer = "All files were sent!";
+                output.writeUTF(answer);
+                System.out.println("Sent: " + answer);
+            }
+        }
+        /*Scanner sc = new Scanner(System.in);
         for (int i = 1; i < 11; i++) {
             files.put("file" + i, false);
         }
@@ -44,6 +61,6 @@ public class Main {
                     return;
                 }
             }
-        }
+        }*/
     }
 }

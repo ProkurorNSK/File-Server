@@ -82,6 +82,9 @@ files:
           }
       }
     learner_created: false
+  - name: src/client/Main.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/projects/52/stages/284/implement#comment
 status: Unchecked
 record: -1
