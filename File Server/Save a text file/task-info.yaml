@@ -270,9 +270,9 @@ files:
           }
       }
     learner_created: true
-  - name: src/server/data/123.txt
-    visible: true
-    learner_created: true
 feedback_link: https://hyperskill.org/projects/52/stages/285/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Sat, 02 Mar 2024 16:48:21 UTC"
 record: -1

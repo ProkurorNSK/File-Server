@@ -13,10 +13,11 @@ public class Main {
 
     //    private static final Map<String, Boolean> files = new HashMap<>();
     private static final int PORT = 34522;
+    private static final String partOfPath = System.getProperty("user.dir") + "\\src\\server\\data\\";
 
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(PORT)) {
-            System.out.println("Server started!");
+//            System.out.println("Server started!");
             while (true) {
                 try (
                         Socket socket = server.accept();
@@ -29,7 +30,7 @@ public class Main {
                         case "PUT" -> {
                             String name = msg[1];
                             String content = msg[2];
-                            Path path = Paths.get(".\\File Server\\task\\src\\server\\data\\" + name);
+                            Path path = Paths.get(partOfPath + name);
                             try {
                                 Files.writeString(path, content, CREATE_NEW, WRITE);
                                 output.writeUTF("200");
@@ -39,7 +40,7 @@ public class Main {
                         }
                         case "GET" -> {
                             String name = msg[1];
-                            Path path = Paths.get(".\\File Server\\task\\src\\server\\data\\" + name);
+                            Path path = Paths.get(partOfPath + name);
                             try {
                                 String content = Files.readString(path);
                                 output.writeUTF("200 " + content);
@@ -49,9 +50,9 @@ public class Main {
                         }
                         case "DELETE" -> {
                             String name = msg[1];
-                            Path path = Paths.get(".\\File Server\\task\\src\\server\\data\\" + name);
+                            Path path = Paths.get(partOfPath + name);
                             if (Files.deleteIfExists(path)) {
-                                output.writeUTF("200 ");
+                                output.writeUTF("200");
                             } else {
                                 output.writeUTF("404");
                             }
